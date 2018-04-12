@@ -33,14 +33,13 @@ class SondageController extends Controller
 	 *
 	 * @return View
 	 */
-	public function index(SondageGestion $SondageGestion) 
+	public function index() 
 	{
-		// Ici on doit retourner la vue "index" en lui transmettant un paramètre "sondage" contenant les sondage
 		// C'est la méthode "getSondages" de la gestion qui est chargée de livrer les éléments de ces sondages
+		$sondages = $this->sondageGestion->getSondages();
 
-		$sondages = $SondageGestion->getSondages();
+		// Ici on doit retourner la vue "index" en lui transmettant un paramètre "sondage" contenant les sondage
 		return view('index', array('sondages' => $sondages));
-
 	}
 
 	/**
@@ -51,9 +50,12 @@ class SondageController extends Controller
 	 */
 	public function create($nom)
 	{
-		// Ici on doit envoyer la vue "sondage" qui contient le formulaire du sondage
 		// C'est la méthode "getSondage" de la gestion qui est chargée de livrer les informations du sondage
+		$sondage = $this->sondageGestion->getSondage($nom);
+
 		// On doit transmettre 2 paramètres à la vue : "sondage" pour les informations du sondage et "nom" pour le nom du sondage
+		// Ici on doit envoyer la vue "sondage" qui contient le formulaire du sondage
+		return view('sondage', array('sondage' => $sondage, 'nom' => $nom));
 	}
 
 	/**
