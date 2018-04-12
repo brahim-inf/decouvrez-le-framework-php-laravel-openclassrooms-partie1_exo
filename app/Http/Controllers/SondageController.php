@@ -70,13 +70,18 @@ class SondageController extends Controller
 		// La validation a réussi 
 		if($this->sondageGestion->save($nom, $request->all())) 
 		{
-			// Ici on doit envoyer la vue "resultats" qui contient les résultats du sondage
 			// C'est la méthode "getSondage" de la gestion qui est chargée de livrer les informations du sondage
+			$sondage = $this->sondageGestion->getSondage($nom);
+			
 			// C'est la méthode "getResults" de la gestion qui est chargée de livrer les résultats du sondage
+			$resultats = $this->sondageGestion->getResults($nom);
+
+			// Ici on doit envoyer la vue "resultats" qui contient les résultats du sondage
 			// On doit transmettre 3 paramètres à la vue : 
 			// - "sondage" pour les informations du sondage 
 			// - "resultats" pour les résultats du sondage 
 			// - "nom" pour le nom du sondage
+			return view('resultats', array('sondage' => $sondage, 'resultats'=> $resultats, 'nom'=>$nom));
 		}
 
 		// Ici comme l'Email a déjà été utilisé on doit rediriger sur la même requête avec la méthode "back"

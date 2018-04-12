@@ -66,6 +66,15 @@ class SondageGestion
 		// On récupère le chemin dans la configuration et on ajoute le nom du fichier
 		$path = config('sondage.files.path') . $nom;
 
+		//vérifier si le dossier exite, sinon on va le crier
+		$parts = explode('/', $path);
+		$nom = array_pop($parts);
+		$path = '';
+		foreach($parts as $part)
+            if(!is_dir($path .= "/$part")) mkdir($path);
+		
+		$path = config('sondage.files.path') . $nom;
+		
 		// Si le fichier n'existe pas on le crée et l'initialise
 		if(!$this->files->exists($path)) {
 			// On récupère les questions
