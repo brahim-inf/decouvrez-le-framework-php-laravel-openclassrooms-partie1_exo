@@ -35,9 +35,11 @@ class SondageController extends Controller
 	 */
 	public function index(SondageGestion $SondageGestion) 
 	{
-		$sondage = $SondageGestion->getSondage();
 		// Ici on doit retourner la vue "index" en lui transmettant un paramètre "sondage" contenant les sondage
 		// C'est la méthode "getSondages" de la gestion qui est chargée de livrer les éléments de ces sondages
+
+		$sondages = $SondageGestion->getSondages();
+		return view('index', array('sondages' => $sondages));
 
 	}
 
