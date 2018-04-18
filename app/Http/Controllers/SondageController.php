@@ -87,6 +87,14 @@ class SondageController extends Controller
 		// Ici comme l'Email a déjà été utilisé on doit rediriger sur la même requête avec la méthode "back"
 		// On doit transmettre en session flash avec le nom "error" l'informations
 		// "Désolé mais cet Email a déjà été utilisé pour ce sondage !"
+		// session(['error', "Désolé mais cet Email a déjà été utilisé pour ce sondage !"]);
+		return redirect("sondage/create/$nom")
+			->with(
+				array(
+					"error" => "Désolé mais cet Email a déjà été utilisé pour ce sondage !",
+					"email" => $request['email']
+				)
+			);
 		// On doit transmettre aussi les anciennes saisies
 	}
 }

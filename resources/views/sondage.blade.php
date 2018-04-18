@@ -15,8 +15,13 @@
 				<!-- Formulaire de vote -->
 				{!! Form::open(['url' => 'sondage/' . $nom]) !!}
 					<div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
-						{!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Votre email']) !!}
-						{!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+						@if(session('email'))
+							{!! Form::email('email', session('email'), ['class' => 'form-control', 'placeholder' => '']) !!}
+							{!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+						@else
+							{!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Votre email']) !!}
+							{!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+						@endif
 					</div>
 					@foreach ($sondage['reponses'] as $index => $reponse)
 						<div class="radio">
